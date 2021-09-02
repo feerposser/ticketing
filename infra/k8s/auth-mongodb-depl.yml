@@ -1,30 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-depl
+  name: auth-mongo-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth
+      app: auth-mongodb
   template:
     metadata:
       labels:
-        app: auth
+        app: auth-mongodb
     spec:
       containers:
-        - name: auth
-          image: feerposser/auth:latest
+        - name: auth-mongodb
+          image: mongo
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-srv
+  name: auth-mongodb-srv
 spec:
   selector:
-    app: auth
+    app: auth-mongodb
   ports:
-    - name: auth
+    - name: mongodb
       protocol: TCP
-      port: 3000
-      targetPort: 3000
+      port: 27017
+      targetPort: 27017
